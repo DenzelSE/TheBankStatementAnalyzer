@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Month;
+import java.util.ArrayList;
 
 public class BankTransactionAnalyzerSimple {
     private static final String RESOURCES = "src/main/resources/";
@@ -19,4 +20,22 @@ public class BankTransactionAnalyzerSimple {
         System.out.println("Transactions in January " + selectInMonth(BankTransactions, Month.JANUARY));
 
         }
+    public static double calculateTotalAmount(final List<BankTransaction> bankTransactions){
+        double total = 0d;
+
+        for(final BankTransaction BankTransaction: bankTransactions){
+            total += bankTransaction.getAmount();
+        }
+        return total;
+    }
+    public static List<BankTransaction>selectInMonth(final List<BankTransaction> bankTransactions, final Month month){
+        final List<BankTransaction> bankTransactionsInMonth = new ArrayList<>();
+
+        for(final bankTransaction bankTransaction:bankTransactions){
+            if (bankTransaction.getDate().getMonth() == month){
+                bankTransactionsInMonth.add(bankTransaction);
+            }
+        }
+        return bankTransactionsInMonth;
+    }
 }
